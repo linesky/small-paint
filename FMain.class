@@ -3,6 +3,7 @@
 Public s As String 
 Public Picture1 As Picture
 Public imag1 As Image
+Public imag2 As Image
 Const ww As Integer = 400
 Const hh As Integer = 300
 Public Sub DrawingArea1_MouseMove()
@@ -21,7 +22,7 @@ Public Sub DrawingArea1_Draw()
  Paint.End
 End Sub
 Public Sub form_open()
-s = "/home/pi/my.png"
+s = "/home/pi/my.jpeg"
 imag1 = New Image(ww, hh, Color.DarkGray)
  Me.Refresh()
 End
@@ -39,7 +40,7 @@ Dim a As String
 
   a = InputBox("file name:", "save", s)
   If a <> "" Then 
-    imag1.Save(a, 100)
+    imag1.Save(a, 99)
     s = a
   End If 
 
@@ -49,10 +50,10 @@ Public Sub openss_Click()
 Dim a As String 
 
   a = InputBox("file name:", "load", s)
-  If a <> "" Then 
-    imag1.Clear()
-    imag1 = New Image(ww, hh, False)
-    imag1.Load(a)
+  If a <> "" Then
+    Paint.Begin(imag1)
+      Paint.DrawPicture(Picture.Load(a), 0, 0)
+    Paint.End
     s = a
     DrawingArea1.Refresh(0, 0, DrawingArea1.w, DrawingArea1.H)
     Me.Refresh()
