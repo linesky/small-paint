@@ -1,0 +1,66 @@
+' Gambas class file
+
+Public s As String 
+Public Picture1 As Picture
+Public imag1 As Image
+Const ww As Integer = 400
+Const hh As Integer = 300
+Public Sub DrawingArea1_MouseMove()
+If Mouse.Button = Mouse.Right Then
+  paint.Begin(imag1)
+    Paint.FillRect(Mouse.X, Mouse.y, 10, 10, Color.Black)
+  Paint.End
+  Me.Refresh()
+End If
+
+End Sub 
+
+Public Sub DrawingArea1_Draw()
+ paint.Begin(DrawingArea1)
+ Paint.DrawImage(imag1, 0, 0)
+ Paint.End
+End Sub
+Public Sub form_open()
+s = "/home/pi/my.png"
+imag1 = New Image(ww, hh, Color.DarkGray)
+ Me.Refresh()
+End
+
+Public Sub newss_Click()
+
+  paint.Begin(imag1)
+    Paint.FillRect(0, 0, ww, hh, Color.DarkGray)
+  Paint.End
+ Me.Refresh()
+End
+
+Public Sub save_Click()
+Dim a As String 
+
+  a = InputBox("file name:", "save", s)
+  If a <> "" Then 
+    imag1.Save(a, 100)
+    s = a
+  End If 
+
+End Sub 
+
+Public Sub openss_Click()
+Dim a As String 
+
+  a = InputBox("file name:", "load", s)
+  If a <> "" Then 
+    imag1.Clear()
+    imag1 = New Image(ww, hh, False)
+    imag1.Load(a)
+    s = a
+    DrawingArea1.Refresh(0, 0, DrawingArea1.w, DrawingArea1.H)
+    Me.Refresh()
+  End If 
+End
+
+Public Sub exiitss_Click()
+
+  Me.Close()
+
+End
